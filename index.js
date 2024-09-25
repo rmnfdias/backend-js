@@ -1,23 +1,23 @@
 const express = require("express"); //const é a criação e uma variavel var global e let é escopo de função e pode ser sobreescritas, a const não pode ser sobrescrita 
+const { somar, calcsalario } = require("./service/exercicios");
 const app = express(); //"cria" uma aplicção express
 app.use(express.json());//Midleware para permitir que o Express intereprete que o corpo da requisição como JSON
 const port = 3000;
 
 
 app.post("/exercicio1/", (req, res) => { //cria a função post que cria o "caminho" que usuario/aplicativo irá seguir
-    const num1 = req.body.num1
-    const num2 = req.body.num2
-    const resultado = (num1) + (num2);
+    const resultado = somar(req.body.num1, req.body.num2)
     
     res.json({Resultado: resultado});//req é request e res é responsy ou seja req é para onde vai e res para onde volta.
 }); //res retorna a requisição, se não tiver a pagina ficará carregando eternamente.
 
 app.post("/exercicio2/", (req, res) => { 
-    const num1 = req.body.num1
-    const num2 = req.body.num2
-    const resultado = Number(num1) * Number(num2);
+       const salario = calcsalario(
+        Number(req.body.vlrHora),
+        Number(req.body.hrTrab)
+       )
     
-    res.json({Resultado: resultado});
+    res.json({Salario: salario});
 }); 
 
 app.post("/exercicio3/", (req, res) => { 
